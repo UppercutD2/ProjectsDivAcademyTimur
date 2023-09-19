@@ -1,8 +1,9 @@
 package Utils;
 
 import IO_Ops_Words.Input_Util;
+import Ops_File.To_File;
 
-import java.io.InputStream;
+
 import java.net.URL;
 import java.util.Scanner;
 
@@ -22,6 +23,7 @@ public class Array_Util {
 
     public static String[] createStrArray(int size)
     {
+        To_File.currentArraySize=size;
         return new String[size];
     }
 

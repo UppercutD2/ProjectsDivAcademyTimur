@@ -8,7 +8,9 @@ import java.util.Scanner;
 
 public class To_File {
     static boolean override = true;
-
+    static int lineForUW =0;
+    static int  linesToAddUW=0;
+    public static int currentArraySize = 0;
 
 
     public static void RW_ToFile(Scanner console)
@@ -25,23 +27,42 @@ public class To_File {
         System.out.println("Words have been inserted to file: " + file.getAbsolutePath());
     }
 
+    public static void UW_ToFile(File file,Scanner console)
+    {
+
+
+
+
+    }
+    ////////////UW_ToFile///////////////////////
+
+    //Method to find required Line in File
+    //Method to know where to start inputing User words
+    public static int getLineForUW(File file,int wordsLength)
+    {
+        try(BufferedReader bf = new BufferedReader(new FileReader(file)))
+        {
+
+
+        }catch(IOException ex)
+        {
+            ex.printStackTrace();
+        }
+
+
+        return 0;
+    }
+
+
+
+    //////// RW_ToFile////////////
     public static void override_RW_ToFile(File file, String[] words)
     {
 
         try(FileWriter fileWriter = new FileWriter(file);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter))
         {
-            bufferedWriter.write("=============================\n" +
-                    DateTime_Util.getDateTimeStr() +"\n" +
-                    "=============================\n" );
-            bufferedWriter.write("RANDOM WORDS FROM API: ");
-            bufferedWriter.newLine();
-            for(String w : words)
-            { bufferedWriter.write(w);
-                bufferedWriter.newLine();
-
-            }
-            bufferedWriter.flush();
+            inputNumericLines(bufferedWriter,words);
 
         }
         catch(IOException ex)
@@ -60,17 +81,8 @@ public class To_File {
         try(FileWriter fileWriter = new FileWriter(file,true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter))
         {
-            bufferedWriter.write("=============================\n" +
-                    DateTime_Util.getDateTimeStr() +"\n" +
-                    "=============================\n" );
-            bufferedWriter.write("RANDOM WORDS FROM API: ");
-            bufferedWriter.newLine();
-            for(String w : words)
-            { bufferedWriter.write(w);
-                bufferedWriter.newLine();
 
-            }
-            bufferedWriter.flush();
+           inputNumericLines(bufferedWriter,words);
 
         }
         catch(IOException ex)
@@ -81,4 +93,32 @@ public class To_File {
 
 
     }
+
+    ///////DRY METHODS/////
+
+
+    public static void inputNumericLines(BufferedWriter bf,String[] words)
+    {
+        try {
+            bf.write("=============================\n" +
+            DateTime_Util.getDateTimeStr() +"\n" +
+            "=============================\n" );
+        bf.write("RANDOM WORDS FROM API: ");
+        bf.newLine();
+        int nmb = 1;
+
+           for (String w : words) {
+               bf.write(nmb + " - " + w);
+               bf.newLine();
+               nmb++;
+           }
+           bf.flush();
+
+       }catch(IOException ex)
+       {
+           ex.printStackTrace();
+       }
+    }
+
+
 }

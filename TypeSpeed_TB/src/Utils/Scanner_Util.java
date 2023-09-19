@@ -7,14 +7,14 @@ public class Scanner_Util {
 
     public static String requiredString(String s)
     {
-        System.out.println(s);
+        System.out.print(s);
         return new Scanner(System.in).nextLine();
     }
 
     public static int requiredInt(String s,Scanner console)
     {
 
-        System.out.println(s);
+        System.out.print(s);
        String input = console.nextLine();
 
        return intCheck(input)? Integer.parseInt(input): 69;
