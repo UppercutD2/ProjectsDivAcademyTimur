@@ -9,8 +9,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -18,7 +20,10 @@ public class Main {
         Scanner console = new Scanner(System.in);
         To_File.RW_ToFile(console);
         System.out.println(DateTime_Util.getDateTimeStr());
-
+        int total_Lines = someMethod(console);
+        System.out.println("Total Lines are - " + total_Lines);
+        int startAnswers =total_Lines-To_File.currentArraySize;
+        System.out.println(" will start on " + startAnswers );
 
         //questions
         //1)clone git repository, and push it to another Git repository
@@ -26,18 +31,18 @@ public class Main {
         //3)ways to cut Console.nextLine() without User pressing "enter"
     }
 
-    public static void someMethod(Scanner console){
+    public static int someMethod(Scanner console){
         File file = Options_File.getFile(console);
-        try( FileReader fileReader = new FileReader(file);
-             BufferedReader bufferedReader = new BufferedReader(fileReader))
-        {        String line = Files.readAllLines(Paths.get(file.getAbsolutePath())).get(4);
-            System.out.println(line);
-
+        try{
+           List<String> lines =  Files.readAllLines(Paths.get(file.getAbsolutePath()));
+            System.out.println(lines);
+            return lines.size();
 
 
         }catch(IOException ex)
         {
             ex.printStackTrace();
         }
+        return -1;
     }
 }
